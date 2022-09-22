@@ -56,3 +56,39 @@ func HasCycle(head *ListNode) bool {
 	}
 	return false
 }
+
+func IfIntersection(head1, head2 *ListNode) (int, bool) {
+	np := make(map[*ListNode]struct{})
+	p1, p2 := head1, head2
+	for p1 != nil {
+		np[p1] = struct{}{}
+		p1 = p1.Next
+	}
+	for p2 != nil {
+		if _, ok := np[p2]; ok {
+			return p2.Val, true
+		}
+		p2 = p2.Next
+	}
+	return -1, false
+}
+
+// 创建两个相交的链表
+func CreateIntersection() (*ListNode, *ListNode) {
+	array1 := []int{3, 6, 3, 1}
+	array2 := []int{6, 7, 8, 10}
+	common := []int{12, 13, 14}
+	h1 := CreateLinkList(array1, false)
+	h2 := CreateLinkList(array2, false)
+	hcommon := CreateLinkList(common, false)
+	p1, p2 := h1, h2
+	for p1.Next != nil {
+		p1 = p1.Next
+	}
+	for p2.Next != nil {
+		p2 = p2.Next
+	}
+	p1.Next = hcommon
+	p2.Next = hcommon
+	return h1, h2
+}

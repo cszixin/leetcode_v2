@@ -31,3 +31,23 @@ func TestCycleLink(t *testing.T) {
 	assert.Equal(t, expect, output, "")
 
 }
+
+func TestCreateIntersection(t *testing.T) {
+	h1, h2 := link_list.CreateIntersection()
+	output1 := link_list.PrintLinkList(h1)
+	expect1 := []int{3, 6, 3, 1, 12, 13, 14}
+	assert.Equal(t, expect1, output1, "")
+
+	output2 := link_list.PrintLinkList(h2)
+	expect2 := []int{6, 7, 8, 10, 12, 13, 14}
+
+	assert.Equal(t, expect2, output2, "")
+}
+
+func TestIfIntersection(t *testing.T) {
+	h1, h2 := link_list.CreateIntersection()
+	value, output := link_list.IfIntersection(h1, h2)
+	assert.Equal(t, true, output, "")
+	assert.Equal(t, 12, value, "")
+
+}
