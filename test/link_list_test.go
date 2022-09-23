@@ -51,3 +51,17 @@ func TestIfIntersection(t *testing.T) {
 	assert.Equal(t, 12, value, "")
 
 }
+
+func TestReverseV1(t *testing.T) {
+	input := []int{3, 6, 3, 5, 2, 1}
+	head := link_list.CreateLinkList(input, false)
+	new_head := link_list.ReverseV2(head)
+	assert.Equal(t, []int{1, 2, 5, 3, 6, 3}, link_list.PrintLinkList(new_head))
+}
+
+func TestReverseV2(t *testing.T) {
+	input := []int{3, 3, 1, 45, 6, 2, 34}
+	head := link_list.CreateLinkList(input, false)
+	head = link_list.ReverseV2(head)
+	assert.Equal(t, []int{34, 2, 6, 45, 1, 3, 3}, link_list.PrintLinkList(head))
+}
