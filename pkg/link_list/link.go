@@ -92,3 +92,29 @@ func CreateIntersection() (*ListNode, *ListNode) {
 	p2.Next = hcommon
 	return h1, h2
 }
+
+// 反转链表
+
+func ReverseV1(head *ListNode) *ListNode {
+	dummy := new(ListNode)
+	p := head
+	for p != nil {
+		tmp := p.Next
+		p.Next = dummy.Next
+		dummy.Next = p
+		p = tmp
+	}
+	return dummy.Next
+}
+
+// 反转链表 递归
+
+func ReverseV2(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	last := ReverseV2(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return last
+}
