@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-
-	"leetcode/pkg/common"
+	"leetcode/pkg/sort"
 )
 
 func main() {
-	array := []int{5, 3, 6, 4, 5, 8, 7, 9, 10}
-	fmt.Println(common.NextGreaterElement(array))
+	array := []int{1, 0, 0, 1}
+	sort.QuickSort(array, 0, len(array)-1)
+	fmt.Println(array)
 }
