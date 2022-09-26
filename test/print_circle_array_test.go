@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: sueRimn
+ * @Date: 2022-09-26 06:07:41
+ * @LastEditors: sueRimn
+ * @LastEditTime: 2022-09-26 06:07:41
+ */
 package test
 
 import (
@@ -13,4 +21,4 @@ func TestPrintCircleArray(t *testing.T) {
 	expect := []int{2, 1, 3, 5, 6, 2, 1, 3, 5, 6}
 	output := array.PrintCircleArray(input)
 	assert.Equal(t, expect, output, "")
-}
+

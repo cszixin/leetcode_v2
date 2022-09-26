@@ -65,3 +65,31 @@ func TestReverseV2(t *testing.T) {
 	head = link_list.ReverseV2(head)
 	assert.Equal(t, []int{34, 2, 6, 45, 1, 3, 3}, link_list.PrintLinkList(head))
 }
+
+func TestReverseN(t *testing.T) {
+	input := []int{3, 3, 1, 45, 6, 2, 34}
+	head := link_list.CreateLinkList(input, false)
+	head = link_list.ReverseN(head, 7)
+	assert.Equal(t, []int{3, 3, 1, 45, 6, 2, 34}, link_list.PrintLinkList(head))
+
+}
+
+func TestReversev3(t *testing.T) {
+	input := []int{4, 6, 1, 4, 78, 12, 5}
+	expect := []int{5, 12, 78, 4, 1, 6, 4, 12}
+	head := link_list.CreateLinkList(input, false)
+	head = link_list.Reversev3(head)
+	actual := link_list.PrintLinkList(head)
+	assert.Equal(t, expect, actual, "")
+}
+
+func TestReverseBetween(t *testing.T) {
+	input := []int{5, 12, 78, 4, 1, 6, 4, 12}
+	head := link_list.CreateLinkList(input, false)
+	a := link_list.GetNode(head, 2)
+	b := link_list.GetNode(head, 4)
+	new_head := link_list.ReverseBetween(a, b)
+	expect := []int{12, 5}
+	assert.Equal(t, expect, link_list.PrintLinkList(new_head), "")
+
+}

@@ -107,6 +107,16 @@ func ReverseV1(head *ListNode) *ListNode {
 	return dummy.Next
 }
 
+func GetNode(head *ListNode, k int) *ListNode {
+	p := head
+	i := 1
+	for i <= k-1 && p != nil {
+		p = p.Next
+		i++
+	}
+	return p
+}
+
 // 反转链表 递归
 
 func ReverseV2(head *ListNode) *ListNode {
@@ -117,4 +127,42 @@ func ReverseV2(head *ListNode) *ListNode {
 	head.Next.Next = head
 	head.Next = nil
 	return last
+}
+
+var successor *ListNode
+
+// 反转链表中前N个元素
+func ReverseN(head *ListNode, n int) *ListNode {
+	if n == 1 {
+		successor = head.Next
+		return head
+	}
+	last := ReverseN(head.Next, n-1)
+	head.Next.Next = head
+	head.Next = successor
+	return last
+}
+
+func Reversev3(head *ListNode) *ListNode {
+	var pre, cur, next *ListNode
+	cur, next = head, head
+	for cur != nil {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	return pre
+}
+
+func ReverseBetween(a, b *ListNode) *ListNode {
+	var pre, cur, next *ListNode
+	cur, next = a, a
+	for cur != b {
+		next = cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	return pre
 }

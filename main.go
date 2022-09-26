@@ -1,7 +1,16 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: liuchuanshi
+ * @Date: 2022-09-26 06:10:50
+ * @LastEditors: liuchuanshi
+ * @LastEditTime: 2022-09-26 06:15:09
+ */
 package main
 
 import (
 	"fmt"
+
 	"leetcode/pkg/sort"
 )
 
