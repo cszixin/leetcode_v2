@@ -166,3 +166,22 @@ func ReverseBetween(a, b *ListNode) *ListNode {
 	}
 	return pre
 }
+
+// 每k个节点一反转
+func ReverKGroup(head *ListNode, k int) *ListNode {
+	var start, end *ListNode
+	start, end = head, head
+	for i := 0; i < k; i++ {
+		// 向前k步
+		if end == nil {
+			//不足k步
+			return head
+		}
+		end = end.Next
+	}
+	//反转前k个
+	new_head := ReverseBetween(start, end)
+	//前面已经将前k个节点反转,现在递归的处理:以第k+1个节点为头结点的后续链表
+	start.Next = ReverKGroup(end, k)
+	return new_head
+}

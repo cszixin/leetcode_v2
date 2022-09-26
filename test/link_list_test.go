@@ -91,5 +91,13 @@ func TestReverseBetween(t *testing.T) {
 	new_head := link_list.ReverseBetween(a, b)
 	expect := []int{12, 5}
 	assert.Equal(t, expect, link_list.PrintLinkList(new_head), "")
+}
 
+func TestReverKGroup(t *testing.T) {
+	input := []int{5, 12, 78, 4, 1, 6, 4, 12}
+	k := 2
+	expect := []int{12, 5, 4, 78, 6, 1, 12, 4}
+	head := link_list.CreateLinkList(input, false)
+	head = link_list.ReverKGroup(head, k)
+	assert.Equal(t, expect, link_list.PrintLinkList(head), "")
 }
