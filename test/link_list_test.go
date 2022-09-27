@@ -101,3 +101,10 @@ func TestReverKGroup(t *testing.T) {
 	head = link_list.ReverKGroup(head, k)
 	assert.Equal(t, expect, link_list.PrintLinkList(head), "")
 }
+func TestRemoveDuplicatesList(t *testing.T) {
+	input := []int{0, 0, 0, 1, 2, 2, 2, 3, 5}
+	head := link_list.CreateLinkList(input, false)
+	head = link_list.RemoveDuplicates(head)
+	expect := []int{0, 1, 2, 3, 5}
+	assert.Equal(t, expect, link_list.PrintLinkList(head), "")
+}
