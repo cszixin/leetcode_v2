@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-09-27 03:40:01
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-09-27 05:52:10
+ * @LastEditTime: 2022-09-27 06:00:12
  */
 package test
 
@@ -21,7 +21,7 @@ func TestRemoveDuplicates(t *testing.T) {
 	actual := array.RemoveDuplicates(input)
 	assert.Equal(t, expect, actual, "")
 
-	expect_array := []int{0, 1, 2, 2, 2}
+	expect_array := []int{0, 1, 2, 1, 1, 2}
 	assert.Equal(t, expect_array, input, "")
 
 }
