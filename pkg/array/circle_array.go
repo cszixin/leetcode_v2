@@ -1,3 +1,11 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @Author: liuchuanshi
+ * @Date: 2022-09-27 03:40:01
+ * @LastEditors: liuchuanshi
+ * @LastEditTime: 2022-09-27 03:52:24
+ */
 package array
 
 func PrintCircleArray(array []int) []int {
@@ -7,4 +15,21 @@ func PrintCircleArray(array []int) []int {
 		output = append(output, array[i%orgLen])
 	}
 	return output
+}
+
+func RemoveDuplicates(array []int) int {
+	if len(array) <= 1 {
+		return len(array)
+	}
+	slow, fast := 0, 0
+	for fast < len(array) {
+		// 找到一个合适的成员
+		if array[fast] != array[slow] {
+			slow++
+			array[slow] = array[fast]
+		}
+		fast++
+	}
+	// 新数组的长度
+	return slow + 1
 }

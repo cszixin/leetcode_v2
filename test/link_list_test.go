@@ -70,7 +70,7 @@ func TestReverseN(t *testing.T) {
 	input := []int{3, 3, 1, 45, 6, 2, 34}
 	head := link_list.CreateLinkList(input, false)
 	head = link_list.ReverseN(head, 7)
-	assert.Equal(t, []int{3, 3, 1, 45, 6, 2, 34}, link_list.PrintLinkList(head))
+	assert.Equal(t, []int{34, 2, 6, 45, 1, 3, 3}, link_list.PrintLinkList(head))
 
 }
 
