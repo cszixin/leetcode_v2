@@ -5,6 +5,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"leetcode/pkg/array"
 	"leetcode/pkg/link_list"
 )
 
@@ -107,4 +108,12 @@ func TestRemoveDuplicatesList(t *testing.T) {
 	head = link_list.RemoveDuplicates(head)
 	expect := []int{0, 1, 2, 3, 5}
 	assert.Equal(t, expect, link_list.PrintLinkList(head), "")
+}
+
+func TestReverseString(t *testing.T) {
+	s := []byte{'a', 'b', 'c', 'd', 'e'}
+	array.ReverseString(s)
+	expect := "edcba"
+	actual := string(s)
+	assert.Equal(t, expect, actual, "")
 }

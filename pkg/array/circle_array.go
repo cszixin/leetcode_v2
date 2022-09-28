@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-09-27 03:40:01
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-09-27 04:20:08
+ * @LastEditTime: 2022-09-27 10:20:01
  */
 package array
 
@@ -44,4 +44,14 @@ func RemoveElement(array []int, val int) int {
 		fast++
 	}
 	return slow
+}
+func ReverseString(s []byte) {
+	left, right := 0, len(s)-1
+	for left < right {
+		tmp := s[left]
+		s[left] = s[right]
+		s[right] = tmp
+		left++
+		right--
+	}
 }
