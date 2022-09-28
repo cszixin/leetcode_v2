@@ -4,12 +4,13 @@
  * @Author: liuchuanshi
  * @Date: 2022-09-28 03:13:11
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-09-28 03:46:43
+ * @LastEditTime: 2022-09-28 04:23:55
  */
 package test
 
 import (
 	"leetcode/pkg/array"
+	"reflect"
 	"testing"
 )
 
@@ -86,6 +87,29 @@ func TestLongestPalindrome(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := array.LongestPalindrome(tt.args.s); got != tt.want {
 				t.Errorf("LongestPalindrome() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestLongestPalindromeV2(t *testing.T) {
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		// TODO: Add test cases.
+		{"test1", args{"babada"}, []string{"bab", "aba", "ada"}},
+		{"test2", args{"abcdef"}, []string{"a", "b", "c", "d", "e", "f"}},
+		{"test3", args{"cbbd"}, []string{"bb"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := array.LongestPalindromeV2(tt.args.s); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("LongestPalindromeV2() = %v, want %v", got, tt.want)
 			}
 		})
 	}
