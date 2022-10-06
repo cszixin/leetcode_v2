@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-09-27 06:25:33
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-09-29 12:24:24
+ * @LastEditTime: 2022-09-29 16:26:10
  */
 package search
 
@@ -87,4 +87,47 @@ func BinSearch33(nums []int, target int) int {
 		}
 	}
 	return -1
+}
+
+func SearchInsert(nums []int, target int) int {
+	left, right := 0, len(nums)-1
+	for left <= right {
+		mid := left + (right-left)>>1
+		if nums[mid] == target {
+			return mid
+		} else if nums[mid] > target {
+			right = mid - 1
+		} else {
+			//找到一个比target小的
+			// 已经到达最后，或者mid后面一个比target大,说明mid已经是最后一个比target小的
+			if mid == len(nums)-1 || nums[mid+1] > target {
+				return mid + 1
+			} else {
+				left = mid + 1
+			}
+		}
+	}
+	// left=right+1,到达了最左端
+	return 0
+}
+
+func MySqrt(x int) int {
+	left, right := 0, x
+	for left <= right {
+		mid := left + (right-left)>>1
+		if mid*mid == x {
+			return mid
+		} else if mid*mid > x {
+			// 大了
+			right = mid - 1
+		} else if mid*mid < x {
+			// 找到一个小的
+			if mid == x || (mid+1)*(mid+1) > x {
+				return mid
+			} else {
+				left = mid + 1
+			}
+		}
+	}
+	return 0
 }

@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-09-28 17:32:36
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-09-29 14:02:37
+ * @LastEditTime: 2022-09-29 15:36:47
  */
 package test
 
@@ -102,6 +102,31 @@ func TestBinSearchRightBound(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := search.BinSearchRightBound(tt.args.array, tt.args.target); got != tt.want {
 				t.Errorf("BinSearchRightBound() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSearchInsert(t *testing.T) {
+	type args struct {
+		nums   []int
+		target int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		// TODO: Add test cases.
+		// {"test1", args{[]int{1, 3, 5, 6}, 5}, 2},
+		{"test2", args{[]int{1, 3, 5, 6}, 7}, 4},
+		// {"test3", args{[]int{1, 3, 5, 6}, 0}, 0},
+		// {"test4", args{[]int{1, 3, 5, 6}, 2}, 1},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := search.SearchInsert(tt.args.nums, tt.args.target); got != tt.want {
+				t.Errorf("SearchInsert() = %v, want %v", got, tt.want)
 			}
 		})
 	}
