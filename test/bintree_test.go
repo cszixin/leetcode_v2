@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:32:02
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 19:55:03
+ * @LastEditTime: 2022-10-07 22:07:04
  */
 package test
 
@@ -168,6 +168,52 @@ func TestGetTreeNodeNum(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := bintree.GetTreeNodeNum(tt.args.root); got != tt.want {
 				t.Errorf("GetTreeNodeNum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetPreNode(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+		p    *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *bintree.BTNode
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root, root.Right}, root.Left.Right.Left},
+		{"test2", args{root, root}, nil},
+		{"test3", args{root, root.Right.Right.Right}, root.Right.Right.Left.Right},
+		{"test5", args{root, root.Left}, root},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.GetPreNode(tt.args.root, tt.args.p); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetPreNode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestReverBinTree(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *bintree.BTNode
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root}, root},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.ReverBinTree(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ReverBinTree() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 20:10:30
+ * @LastEditTime: 2022-10-07 22:11:50
  */
 package bintree
 
@@ -166,4 +166,46 @@ func GetTreeNodeNum(root *BTNode) int {
 	}
 	dfs(root)
 	return num
+}
+
+func GetPreNode(root *BTNode, p *BTNode) *BTNode {
+	res := make([]*BTNode, 0)
+	var dfs func(*BTNode) *BTNode
+	dfs = func(root *BTNode) *BTNode {
+		if root != nil {
+			res = append(res, root)
+			if root == p {
+				res = res[:len(res)-1]
+				if len(res) > 0 {
+					return res[len(res)-1]
+				} else {
+					return nil
+				}
+			}
+			l := dfs(root.Left)
+			if l != nil {
+				return l
+			} else {
+				return dfs(root.Right)
+			}
+		}
+		return nil
+	}
+	return dfs(root)
+}
+
+//反转一颗二叉树,左右子树互换
+func ReverBinTree(root *BTNode) *BTNode {
+	var dfs func(*BTNode)
+	dfs = func(root *BTNode) {
+		if root != nil {
+			tmp := root.Left
+			root.Left = root.Right
+			root.Right = tmp
+			dfs(root.Left)
+			dfs(root.Right)
+		}
+	}
+	dfs(root)
+	return root
 }
