@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 19:31:05
+ * @LastEditTime: 2022-10-07 20:10:30
  */
 package bintree
 
@@ -53,8 +53,13 @@ func Postrder(root *BTNode) []string {
 func LevelOrder(root *BTNode) []string {
 	queue := make([]*BTNode, 0)
 	res := []string{}
+	//求二叉树的宽度,即层数最多的节点
+	m := make(map[int]int)
+	max := 0
 	if root != nil {
+
 		// root入队
+		m[1] = 1
 		queue = append(queue, root)
 		root.Level = 1
 		//队列不空
@@ -66,10 +71,18 @@ func LevelOrder(root *BTNode) []string {
 			res = append(res, cur.Data)
 			if cur.Left != nil {
 				cur.Left.Level = cur.Level + 1
+				m[cur.Left.Level] = m[cur.Left.Level] + 1
+				if m[cur.Left.Level] > max {
+					max = m[cur.Left.Level]
+				}
 				queue = append(queue, cur.Left)
 			}
 			if cur.Right != nil {
 				cur.Right.Level = cur.Level + 1
+				m[cur.Right.Level] = m[cur.Right.Level] + 1
+				if m[cur.Right.Level] > max {
+					max = m[cur.Right.Level]
+				}
 				queue = append(queue, cur.Right)
 			}
 		}
