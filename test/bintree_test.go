@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:32:02
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 19:49:40
+ * @LastEditTime: 2022-10-07 19:55:03
  */
 package test
 
@@ -162,6 +162,7 @@ func TestGetTreeNodeNum(t *testing.T) {
 		{"test2", args{root.Left}, 3},
 		{"test3", args{root.Left.Right.Left}, 1},
 		{"test4", args{root.Left.Right.Left.Left}, 0},
+		{"test5", args{root.Right}, 5},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
