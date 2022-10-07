@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-06 23:13:41
+ * @LastEditTime: 2022-10-07 19:31:05
  */
 package bintree
 
@@ -56,20 +56,101 @@ func LevelOrder(root *BTNode) []string {
 	if root != nil {
 		// root入队
 		queue = append(queue, root)
+		root.Level = 1
 		//队列不空
 		for len(queue) > 0 {
 			//取得队头
 			cur := queue[0]
-			//处队
+			//出队
 			queue = queue[1:]
 			res = append(res, cur.Data)
 			if cur.Left != nil {
+				cur.Left.Level = cur.Level + 1
 				queue = append(queue, cur.Left)
 			}
 			if cur.Right != nil {
+				cur.Right.Level = cur.Level + 1
 				queue = append(queue, cur.Right)
 			}
 		}
 	}
 	return res
+}
+
+func GetNodeLevel(root *BTNode, value string, level int) int {
+	if root == nil {
+		return -1
+	}
+	if root.Data == value {
+		return level
+	}
+	llevel := GetNodeLevel(root.Left, value, level+1)
+	if llevel > -1 {
+		return llevel
+	} else {
+		return GetNodeLevel(root.Right, value, level+1)
+	}
+}
+
+func FindNode(root *BTNode, value string) *BTNode {
+	if root == nil {
+		return nil
+	}
+	if root.Data == value {
+		return root
+	}
+	left := FindNode(root.Left, value)
+	if left != nil {
+		return left
+	}
+	return FindNode(root.Right, value)
+}
+
+func GetBintreeDepth(root *BTNode) int {
+	if root == nil {
+		return 0
+	}
+	if root.Left == nil && root.Right == nil {
+		return 1
+	}
+	ldepth := GetBintreeDepth(root.Left)
+	rdepth := GetBintreeDepth(root.Right)
+	if ldepth > rdepth {
+		return ldepth + 1
+	} else {
+		return rdepth + 1
+	}
+}
+
+func GetKthNode(root *BTNode, k int) *BTNode {
+	var dfs func(*BTNode) *BTNode
+	i := 0
+	dfs = func(root *BTNode) *BTNode {
+		if root != nil {
+			i++
+			if i == k {
+				return root
+			}
+			left := dfs(root.Left)
+			if left != nil {
+				return left
+			}
+			return dfs(root.Right)
+		}
+		return nil
+	}
+	return dfs(root)
+}
+func GetTreeNodeNum(root *BTNode) int {
+	num := 0
+	var dfs func(*BTNode)
+	dfs = func(b *BTNode) {
+		if b != nil {
+			num++
+			dfs(b.Left)
+			dfs(b.Right)
+		}
+	}
+	dfs(root)
+	return num
 }
