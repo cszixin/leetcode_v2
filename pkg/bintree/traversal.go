@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 22:11:50
+ * @LastEditTime: 2022-10-09 09:38:06
  */
 package bintree
 
@@ -22,6 +22,27 @@ func PreOrder(root *BTNode) []string {
 	return res
 }
 
+func PreOrderNonrecursion(root *BTNode) []string {
+	res := make([]string, 0)
+	stack := make([]*BTNode, 0)
+	p := root
+	//根节点入栈
+	stack = append(stack, root)
+	for len(stack) > 0 {
+		p = stack[len(stack)-1]
+		res = append(res, p.Data)
+		// 出栈
+		stack = stack[:len(stack)-1]
+		if p.Right != nil {
+			stack = append(stack, p.Right)
+		}
+		if p.Left != nil {
+			stack = append(stack, p.Left)
+		}
+	}
+	return res
+}
+
 func InOrder(root *BTNode) []string {
 	res := []string{}
 	var dfs func(*BTNode)
@@ -36,7 +57,29 @@ func InOrder(root *BTNode) []string {
 	return res
 }
 
-func Postrder(root *BTNode) []string {
+func InOrderNonrecursion(root *BTNode) []string {
+	res := make([]string, 0)
+	stack := make([]*BTNode, 0)
+	p := root
+	for len(stack) > 0 || p != nil {
+		//到达最左
+		for p != nil {
+			stack = append(stack, p)
+			p = p.Left
+		}
+		if len(stack) > 0 {
+			p = stack[len(stack)-1]
+			res = append(res, p.Data)
+			stack = stack[:len(stack)-1]
+			p = p.Right
+
+		}
+
+	}
+	return res
+}
+
+func PostOrder(root *BTNode) []string {
 	res := []string{}
 	var dfs func(*BTNode)
 	dfs = func(root *BTNode) {
@@ -47,6 +90,35 @@ func Postrder(root *BTNode) []string {
 		}
 	}
 	dfs(root)
+	return res
+}
+
+func PostOrderNonrecursion(root *BTNode) []string {
+	res := make([]string, 0)
+	stack := make([]*BTNode, 0)
+	p := root
+	stack = append(stack, p)
+	for len(stack) > 0 {
+		p = stack[len(stack)-1]
+		res = append(res, p.Data)
+		//出栈
+		stack = stack[:len(stack)-1]
+		if p.Left != nil {
+			stack = append(stack, p.Left)
+		}
+		if p.Right != nil {
+			stack = append(stack, p.Right)
+		}
+	}
+	//此时res保留着前序遍历时,左右互换后的顺序
+	front, rear := 0, len(res)-1
+	for front < rear {
+		tmp := res[rear]
+		res[rear] = res[front]
+		res[front] = tmp
+		front++
+		rear--
+	}
 	return res
 }
 
@@ -192,6 +264,28 @@ func GetPreNode(root *BTNode, p *BTNode) *BTNode {
 		return nil
 	}
 	return dfs(root)
+}
+
+func GetPreNodev2(root *BTNode, p *BTNode) *BTNode {
+	// res := make([]*BTNode, 0)
+	var pre *BTNode
+	var res *BTNode
+	var dfs func(*BTNode)
+	dfs = func(c *BTNode) {
+		if c != nil {
+			if c == p {
+				//保存结果
+				res = pre
+			} else {
+				pre = c
+			}
+			dfs(c.Left)
+			dfs(c.Right)
+
+		}
+	}
+	dfs(root)
+	return res
 }
 
 //反转一颗二叉树,左右子树互换

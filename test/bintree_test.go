@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:32:02
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-07 22:07:04
+ * @LastEditTime: 2022-10-09 09:39:57
  */
 package test
 
@@ -32,13 +32,55 @@ func TestPreOrderTree(t *testing.T) {
 	assert.Equal(t, preorder, res, "")
 }
 
+func TestPreOrderNonrecursion(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root}, preorder},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.PreOrderNonrecursion(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("PreOrderNonrecursion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestInOrderTree(t *testing.T) {
 	res := bintree.InOrder(root)
 	assert.Equal(t, inorder, res, "")
 }
 
+func TestInOrderNonrecursion(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root}, inorder},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.InOrderNonrecursion(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("InOrderNonrecursion() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestPostOrderTree(t *testing.T) {
-	res := bintree.Postrder(root)
+	res := bintree.PostOrder(root)
 	assert.Equal(t, []string{"C", "D", "B", "H", "G", "I", "F", "E", "A"}, res, "")
 }
 
@@ -187,11 +229,12 @@ func TestGetPreNode(t *testing.T) {
 		{"test1", args{root, root.Right}, root.Left.Right.Left},
 		{"test2", args{root, root}, nil},
 		{"test3", args{root, root.Right.Right.Right}, root.Right.Right.Left.Right},
+		{"test4", args{root, root.Right.Right.Left}, root.Right.Right},
 		{"test5", args{root, root.Left}, root},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := bintree.GetPreNode(tt.args.root, tt.args.p); !reflect.DeepEqual(got, tt.want) {
+			if got := bintree.GetPreNodev2(tt.args.root, tt.args.p); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetPreNode() = %v, want %v", got, tt.want)
 			}
 		})
@@ -214,6 +257,27 @@ func TestReverBinTree(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := bintree.ReverBinTree(tt.args.root); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ReverBinTree() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestPostOrderNonrecursion(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root}, []string{"C", "D", "B", "H", "G", "I", "F", "E", "A"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.PostOrderNonrecursion(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("PostOrderNonrecursion() = %v, want %v", got, tt.want)
 			}
 		})
 	}
