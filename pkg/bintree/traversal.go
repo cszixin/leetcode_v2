@@ -4,9 +4,11 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-09 09:38:06
+ * @LastEditTime: 2022-10-11 14:03:20
  */
 package bintree
+
+import "math"
 
 func PreOrder(root *BTNode) []string {
 	res := []string{}
@@ -162,6 +164,41 @@ func LevelOrder(root *BTNode) []string {
 	return res
 }
 
+func LevelOrderV2(root *BTNode) [][]string {
+	res := make([][]string, 0)
+	if root != nil {
+		queue := make([]*BTNode, 0)
+		//根入队
+		queue = append(queue, root)
+		//队列不空
+		for len(queue) > 0 {
+			size := len(queue)
+			tmp := make([]string, 0)
+			var pre *BTNode
+			for i := 0; i < size; i++ {
+				// 处理本层节点
+				cur := queue[0]
+				if pre == nil {
+					pre = cur
+				} else {
+					pre.Next = cur
+					pre = cur
+				}
+				tmp = append(tmp, cur.Data)
+				queue = queue[1:]
+				if cur.Left != nil {
+					queue = append(queue, cur.Left)
+				}
+				if cur.Right != nil {
+					queue = append(queue, cur.Right)
+				}
+			}
+			res = append(res, tmp)
+		}
+	}
+	return res
+}
+
 func GetNodeLevel(root *BTNode, value string, level int) int {
 	if root == nil {
 		return -1
@@ -205,6 +242,27 @@ func GetBintreeDepth(root *BTNode) int {
 	} else {
 		return rdepth + 1
 	}
+}
+
+func GetBintreeDepthV2(root *BTNode) int {
+	res, depth := 0, 0
+	var dfs func(*BTNode)
+	dfs = func(root *BTNode) {
+		if root != nil {
+			depth++
+			if root.Left == nil && root.Right == nil {
+				//遇到了叶子节点，尝试更新res最大值
+				if depth > res {
+					res = depth
+				}
+			}
+			dfs(root.Left)
+			dfs(root.Right)
+			depth--
+		}
+	}
+	dfs(root)
+	return res
 }
 
 func GetKthNode(root *BTNode, k int) *BTNode {
@@ -289,7 +347,7 @@ func GetPreNodev2(root *BTNode, p *BTNode) *BTNode {
 }
 
 //反转一颗二叉树,左右子树互换
-func ReverBinTree(root *BTNode) *BTNode {
+func RevertBinTree(root *BTNode) *BTNode {
 	var dfs func(*BTNode)
 	dfs = func(root *BTNode) {
 		if root != nil {
@@ -302,4 +360,55 @@ func ReverBinTree(root *BTNode) *BTNode {
 	}
 	dfs(root)
 	return root
+}
+
+func RevertBinTreeV2(root *BTNode) *BTNode {
+	if root == nil {
+		return nil
+	}
+	left := RevertBinTreeV2(root.Left)
+	right := RevertBinTreeV2(root.Right)
+	root.Left = right
+	root.Right = left
+	return root
+}
+
+//求某个节点左右子树节点的个数
+func GetLeftRightNode(root *BTNode, p *BTNode) []int {
+	res := make([]int, 2)
+	var dfs func(*BTNode) int
+	dfs = func(root *BTNode) int {
+		if root != nil {
+			l := dfs(root.Left)
+			r := dfs(root.Right)
+			if root == p {
+				res[0] = l
+				res[1] = r
+			}
+			return l + r + 1
+		}
+		return 0
+	}
+	dfs(root)
+	return res
+}
+
+// 求二叉树的最长直径
+func GetdiameterOfBinaryTree(root *BTNode) int {
+	res := 0
+	var dfs func(*BTNode) int
+	dfs = func(root *BTNode) int {
+		if root == nil {
+			return 0
+		}
+		l := dfs(root.Left)
+		r := dfs(root.Right)
+		cur := l + r
+		if cur > res {
+			res = cur
+		}
+		return int(math.Max(float64(l), float64(r))) + 1
+	}
+	dfs(root)
+	return res
 }
