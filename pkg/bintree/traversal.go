@@ -4,11 +4,14 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-11 14:03:20
+ * @LastEditTime: 2022-10-12 15:08:22
  */
 package bintree
 
-import "math"
+import (
+	"math"
+	"strconv"
+)
 
 func PreOrder(root *BTNode) []string {
 	res := []string{}
@@ -411,4 +414,46 @@ func GetdiameterOfBinaryTree(root *BTNode) int {
 	}
 	dfs(root)
 	return res
+}
+
+// 判断B是否为A的子结构,即B的起点为A的根节点
+func Recur(A, B *BTNode) bool {
+	// 遍历完B
+	if B == nil {
+		return true
+	}
+	//A遍历完,B未完,或者A和B的值不相同
+	if A == nil || A.Data != B.Data {
+		return false
+	}
+	// A.Data==B.Data
+	return Recur(A.Left, B.Left) && Recur(A.Right, B.Right)
+}
+
+//判断B是否为A的子结构
+func IsSubStructure(A, B *BTNode) bool {
+	if A == nil || B == nil {
+		return false
+	}
+	return Recur(A, B) || IsSubStructure(A.Left, B) || IsSubStructure(A.Right, B)
+}
+
+func ConstructMaximumBinaryTree(nums []int) *BTNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	maxIndex := 0
+	max := nums[0]
+	for k, v := range nums {
+		if v > max {
+			max = v
+			maxIndex = k
+		}
+	}
+	root := &BTNode{
+		Data: strconv.Itoa(max),
+	}
+	root.Left = ConstructMaximumBinaryTree(nums[:maxIndex])
+	root.Right = ConstructMaximumBinaryTree(nums[maxIndex+1:])
+	return root
 }

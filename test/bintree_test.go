@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:32:02
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-11 11:28:56
+ * @LastEditTime: 2022-10-12 15:12:14
  */
 package test
 
@@ -17,6 +17,7 @@ import (
 )
 
 var root *bintree.BTNode
+var rootA *bintree.BTNode
 var preorder []string
 var inorder []string
 
@@ -24,6 +25,9 @@ func init() {
 	preorder = []string{"A", "B", "D", "C", "E", "F", "G", "H", "I"}
 	inorder = []string{"B", "C", "D", "A", "E", "G", "H", "F", "I"}
 	root = bintree.CreateBinTree(preorder, inorder)
+	preorderA := []string{"A", "B", "D", "C"}
+	inorderA := []string{"B", "C", "D", "A"}
+	rootA = bintree.CreateBinTree(preorderA, inorderA)
 
 }
 
@@ -369,6 +373,49 @@ func TestRevertBinTreeV2(t *testing.T) {
 			got := bintree.RevertBinTreeV2(tt.args.root)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("RevertBinTreeV2() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestRecur(t *testing.T) {
+	type args struct {
+		A *bintree.BTNode
+		B *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root, rootA}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.Recur(tt.args.A, tt.args.B); got != tt.want {
+				t.Errorf("Recur() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestConstructMaximumBinaryTree(t *testing.T) {
+	type args struct {
+		nums []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want *bintree.BTNode
+	}{
+		// TODO: Add test cases.
+		{"test1", args{[]int{1, 2, 3}}, nil},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.ConstructMaximumBinaryTree(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ConstructMaximumBinaryTree() = %v, want %v", got, tt.want)
 			}
 		})
 	}
