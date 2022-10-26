@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:32:02
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-12 15:12:14
+ * @LastEditTime: 2022-10-19 15:50:06
  */
 package test
 
@@ -25,8 +25,8 @@ func init() {
 	preorder = []string{"A", "B", "D", "C", "E", "F", "G", "H", "I"}
 	inorder = []string{"B", "C", "D", "A", "E", "G", "H", "F", "I"}
 	root = bintree.CreateBinTree(preorder, inorder)
-	preorderA := []string{"A", "B", "D", "C"}
-	inorderA := []string{"B", "C", "D", "A"}
+	preorderA := []string{"0"}
+	inorderA := []string{"0"}
 	rootA = bintree.CreateBinTree(preorderA, inorderA)
 
 }
@@ -416,6 +416,49 @@ func TestConstructMaximumBinaryTree(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := bintree.ConstructMaximumBinaryTree(tt.args.nums); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("ConstructMaximumBinaryTree() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetAllRoute(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want [][]string
+	}{
+		// TODO: Add test cases.
+		{"test1", args{root}, [][]string{{}}},
+		{"test2", args{root.Right.Right}, [][]string{{}}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.GetAllRoute(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetAllRoute() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_isValidBST(t *testing.T) {
+	type args struct {
+		root *bintree.BTNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		// TODO: Add test cases.
+		{"test1", args{rootA}, true},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bintree.IsValidBST(tt.args.root); got != tt.want {
+				t.Errorf("isValidBST() = %v, want %v", got, tt.want)
 			}
 		})
 	}

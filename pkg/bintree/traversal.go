@@ -4,11 +4,12 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-06 21:31:00
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-12 15:08:22
+ * @LastEditTime: 2022-10-19 12:42:16
  */
 package bintree
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 )
@@ -456,4 +457,45 @@ func ConstructMaximumBinaryTree(nums []int) *BTNode {
 	root.Left = ConstructMaximumBinaryTree(nums[:maxIndex])
 	root.Right = ConstructMaximumBinaryTree(nums[maxIndex+1:])
 	return root
+}
+
+func bstFromPreorder(preorder []int) *BTNode {
+	if len(preorder) == 0 {
+		return nil
+	}
+	root := &BTNode{
+		Data: string(fmt.Sprint(preorder[0])),
+	}
+	if len(preorder) == 1 {
+		return root
+	}
+	index := 1
+	for index < len(preorder) && preorder[index] < preorder[0] {
+		index++
+	}
+
+	root.Left = bstFromPreorder(preorder[1:index])
+	root.Right = bstFromPreorder(preorder[index:])
+	return root
+}
+
+func GetAllRoute(root *BTNode) [][]string {
+	path := make([]string, 0)
+	res := make([][]string, 0)
+	var dfs func(root *BTNode)
+	dfs = func(root *BTNode) {
+		if root == nil {
+			return
+		}
+		path = append(path, root.Data)
+		if root.Left == nil && root.Right == nil {
+			res = append(res, append([]string(nil), path...))
+
+		}
+		dfs(root.Left)
+		dfs(root.Right)
+		path = path[:len(path)-1]
+	}
+	dfs(root)
+	return res
 }

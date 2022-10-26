@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-14 16:13:10
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-17 09:45:39
+ * @LastEditTime: 2022-10-17 13:03:13
  */
 package queue
 
@@ -12,6 +12,7 @@ import "math"
 
 //实现单调队列
 type MonotonicQueue struct {
+	real []int
 	data []int
 	flag bool
 }
@@ -20,6 +21,7 @@ func MakeQueue(flag bool) *MonotonicQueue {
 	// flag 为true单调递减,求最大值,反之单调递增,求最小值
 	q := new(MonotonicQueue)
 	q.data = make([]int, 0)
+	
 	q.flag = flag
 	return q
 }

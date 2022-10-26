@@ -4,7 +4,7 @@
  * @Author: liuchuanshi
  * @Date: 2022-10-13 14:16:42
  * @LastEditors: liuchuanshi
- * @LastEditTime: 2022-10-17 09:57:28
+ * @LastEditTime: 2022-10-17 10:06:41
  */
 package slidingwindow
 
@@ -204,7 +204,6 @@ func getMaxDiff(nums []int) int {
 
 func longestSubarray(nums []int, limit int) int {
 	left, right := 0, 0
-	windows := make([]int, 0)
 	max := 0
 	q1 := queue.MakeQueue(true)
 	q2 := queue.MakeQueue(false)
@@ -212,7 +211,6 @@ func longestSubarray(nums []int, limit int) int {
 	for right < len(nums) {
 		c := nums[right]
 		right++
-		windows = append(windows, c)
 		q1.Push(c)
 		q2.Push(c)
 
