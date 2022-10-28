@@ -1,9 +1,5 @@
 package myheap
 
-import (
-	"container/heap"
-)
-
 func topKFrequent(nums []int, k int) []int {
 	m1 := make(map[int]int, 0)
 	m2 := make(map[int][]int, 0)
@@ -35,26 +31,26 @@ func topKFrequent(nums []int, k int) []int {
 	return topK
 }
 
-func topKFrequentV2(nums []int, k int) []int {
-	m1 := make(map[int]int, 0)
-	for _, v := range nums {
-		m1[v]++
-	}
-	h := &MinHeapV2{}
-	heap.Init(h)
-	for key, value := range m1 {
-		heap.Push(h, Node{key, value})
-		if h.Len() > k {
-			print(h.Len())
-			heap.Pop(h)
-		}
-	}
-	res := make([]int, 0)
-	for i := 0; i < k; i++ {
-		tmp := heap.Pop(h)
-		node, _ := tmp.(Node)
-		res = append(res, node.key)
-	}
-	return res
+// func topKFrequentV2(nums []int, k int) []int {
+// 	m1 := make(map[int]int, 0)
+// 	for _, v := range nums {
+// 		m1[v]++
+// 	}
+// 	h := &MinHeapV2{}
+// 	heap.Init(h)
+// 	for key, value := range m1 {
+// 		heap.Push(h, Node{key, value})
+// 		if h.Len() > k {
+// 			print(h.Len())
+// 			heap.Pop(h)
+// 		}
+// 	}
+// 	res := make([]int, 0)
+// 	for i := 0; i < k; i++ {
+// 		tmp := heap.Pop(h)
+// 		node, _ := tmp.(Node)
+// 		res = append(res, node.key)
+// 	}
+// 	return res
 
-}
+// }
