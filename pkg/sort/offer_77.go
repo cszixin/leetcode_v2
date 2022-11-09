@@ -22,6 +22,7 @@ func getMid(head, tail *ListNode) *ListNode {
 	for fast != tail {
 		slow = slow.Next
 		fast = fast.Next
+		//没有到尾，再走一步
 		if fast != tail {
 			fast = fast.Next
 		}
@@ -39,16 +40,14 @@ func sortList(head *ListNode) *ListNode {
 		for l != nil && r != nil {
 			if l.Val <= r.Val {
 				p.Next = l
-				p = p.Next
 				l = l.Next
 			} else {
 				p.Next = r
-				p = p.Next
 				r = r.Next
 			}
+			p = p.Next
 
 		}
-
 		if l != nil {
 			p.Next = l
 		}
@@ -62,6 +61,7 @@ func sortList(head *ListNode) *ListNode {
 			//空链表
 			return head
 		}
+		// 重点处理
 		if head.Next == tail {
 			//链表长度1
 			head.Next = nil
